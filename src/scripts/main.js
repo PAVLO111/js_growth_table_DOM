@@ -1,6 +1,6 @@
 'use strict';
 
-console.log('Hello World!');
+// console.log('Hello World!');
 
 const appendRow = document.querySelector('.append-row');
 const removeRow = document.querySelector('.remove-row');
@@ -9,13 +9,18 @@ const removeColumn = document.querySelector('.remove-column');
 const table = document.querySelector('.field');
 
 let rowState = document.querySelectorAll('tr').length;
-
-console.log(rowState);
+// console.log(rowState);
 
 let columnState = document.querySelector('tr').children.length;
-// let columnState = document.querySelectorAll('td').length / rowState;
-// const columnState = 4;
-console.log(columnState);
+// console.log(columnState);
+
+function checkState() {
+  rowState.disabled = rowState >= 10;
+  columnState.disabled = columnState >= 10;
+
+  rowState.disabled = rowState <= 2;
+  columnState.disabled = columnState <= 2;
+}
 
 appendRow.addEventListener('click', (e) => {
   const newRow = document.createElement('tr');
@@ -28,23 +33,36 @@ appendRow.addEventListener('click', (e) => {
 
   table.append(newRow);
   rowState++;
+  checkState();
 });
 
 removeRow.addEventListener('click', (e) => {
   table.lastElementChild.remove();
+
+  rowState--;
+  checkState();
 });
 
 appendColumn.addEventListener('click', (e) => {
-  let allRows = document.querySelectorAll('tr');
-  console.log(allRows);
+  const allRows = document.querySelectorAll('tr');
 
-  const newCell = document.createElement('td');
+  // console.log(allRows);
 
-  allRows.forEach((row) => row.append(newCell));
+  allRows.forEach((row) => {
+    const newCell = document.createElement('td');
+
+    row.append(newCell);
+  });
+
+  columnState++;
+  checkState();
 });
 
 removeColumn.addEventListener('click', (e) => {
-  let allRows = document.querySelectorAll('tr');
+  const allRows = document.querySelectorAll('tr');
 
   allRows.forEach((row) => row.lastChild.remove());
+
+  columnState--;
+  checkState();
 });
