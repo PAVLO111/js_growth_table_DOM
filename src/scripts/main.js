@@ -10,8 +10,8 @@ function checkState() {
   const currentRows = document.querySelectorAll('.field tr').length;
   const currentColumns = document.querySelector('.field tr').children.length;
 
-  appendRow.disabled = currentRows >= 5;
-  appendColumn.disabled = currentColumns >= 5;
+  appendRow.disabled = currentRows >= 10;
+  appendColumn.disabled = currentColumns >= 10;
 
   removeRow.disabled = currentRows <= 2;
   removeColumn.disabled = currentColumns <= 2;
@@ -32,11 +32,13 @@ appendRow.addEventListener('click', (e) => {
 });
 
 removeRow.addEventListener('click', (e) => {
-  const tbody = document.querySelector('.field tbody');
+  const allRows = document.querySelectorAll('tr');
 
-  tbody.lastElementChild.remove();
+  if (allRows.length > 2) {
+    allRows[allRows.length - 1].remove();
 
-  checkState();
+    checkState();
+  }
 });
 
 appendColumn.addEventListener('click', (e) => {
@@ -54,7 +56,7 @@ appendColumn.addEventListener('click', (e) => {
 removeColumn.addEventListener('click', (e) => {
   const allRows = document.querySelectorAll('tr');
 
-  allRows.forEach((row) => row.lastChild.remove());
+  allRows.forEach((row) => row.lastElementChild.remove());
 
   checkState();
 });
