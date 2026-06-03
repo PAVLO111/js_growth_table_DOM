@@ -17,7 +17,7 @@ function checkState() {
   removeColumn.disabled = currentColumns <= 2;
 }
 
-appendRow.addEventListener('click', (e) => {
+appendRow.addEventListener('click', () => {
   const newRow = document.createElement('tr');
   const currentColumns = document.querySelector('.field tr').children.length;
 
@@ -31,8 +31,8 @@ appendRow.addEventListener('click', (e) => {
   checkState();
 });
 
-removeRow.addEventListener('click', (e) => {
-  const allRows = document.querySelectorAll('tr');
+removeRow.addEventListener('click', () => {
+  const allRows = document.querySelectorAll('.field tr');
 
   if (allRows.length > 2) {
     allRows[allRows.length - 1].remove();
@@ -41,8 +41,8 @@ removeRow.addEventListener('click', (e) => {
   }
 });
 
-appendColumn.addEventListener('click', (e) => {
-  const allRows = document.querySelectorAll('tr');
+appendColumn.addEventListener('click', () => {
+  const allRows = document.querySelectorAll('.field tr');
 
   allRows.forEach((row) => {
     const newCell = document.createElement('td');
@@ -53,10 +53,12 @@ appendColumn.addEventListener('click', (e) => {
   checkState();
 });
 
-removeColumn.addEventListener('click', (e) => {
-  const allRows = document.querySelectorAll('tr');
+removeColumn.addEventListener('click', () => {
+  const allRows = document.querySelectorAll('.field tr');
 
   allRows.forEach((row) => row.lastElementChild.remove());
 
   checkState();
 });
+
+checkState();
