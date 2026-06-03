@@ -19,16 +19,19 @@ function checkState() {
 
 appendRow.addEventListener('click', () => {
   const newRow = document.createElement('tr');
+  const allRows = document.querySelectorAll('.field tr').length;
   const currentColumns = document.querySelector('.field tr').children.length;
 
-  for (let i = 0; i < currentColumns; i++) {
-    const newRowCell = document.createElement('td');
+  if (allRows < 10) {
+    for (let i = 0; i < currentColumns; i++) {
+      const newRowCell = document.createElement('td');
 
-    newRow.append(newRowCell);
+      newRow.append(newRowCell);
+    }
+
+    table.append(newRow);
+    checkState();
   }
-
-  table.append(newRow);
-  checkState();
 });
 
 removeRow.addEventListener('click', () => {
@@ -43,22 +46,28 @@ removeRow.addEventListener('click', () => {
 
 appendColumn.addEventListener('click', () => {
   const allRows = document.querySelectorAll('.field tr');
+  const allColumns = document.querySelector('.field tr').children.length;
 
-  allRows.forEach((row) => {
-    const newCell = document.createElement('td');
+  if (allColumns < 10) {
+    allRows.forEach((row) => {
+      const newCell = document.createElement('td');
 
-    row.append(newCell);
-  });
+      row.append(newCell);
+    });
 
-  checkState();
+    checkState();
+  }
 });
 
 removeColumn.addEventListener('click', () => {
   const allRows = document.querySelectorAll('.field tr');
+  const allColumns = document.querySelector('.field tr').children.length;
 
-  allRows.forEach((row) => row.lastElementChild.remove());
+  if (allColumns > 2) {
+    allRows.forEach((row) => row.lastElementChild.remove());
 
-  checkState();
+    checkState();
+  }
 });
 
 checkState();
